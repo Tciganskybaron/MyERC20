@@ -1,7 +1,28 @@
 {
-	"devDependencies": {
-		"@nomicfoundation/hardhat-toolbox": "^5.0.0",
-		"@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
-		"hardhat": "^2.22.12"
-	}
+    "scripts": {
+        "lint:fix": "eslint --fix \"**/*.{cjs,js,ts}\"",
+        "format": "prettier --write \"**/*.{js,ts,json}\" --config ./.prettierrc",
+        "prepare": "husky install"
+    },
+    "devDependencies": {
+        "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+        "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
+        "@typescript-eslint/eslint-plugin": "^7.9.0",
+        "@typescript-eslint/parser": "^7.9.0",
+        "eslint": "^8.57.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.1.3",
+        "hardhat": "^2.22.12",
+        "husky": "^8.0.3",
+        "lint-staged": "^15.2.2",
+        "prettier": "^3.2.5"
+    },
+    "lint-staged": {
+        "**/*.{cjs,js,ts}": [
+            "npm run lint:fix"
+        ],
+        "**/*.{js,ts,json}": [
+            "npm run format"
+        ]
+    }
 }
