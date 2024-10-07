@@ -24,5 +24,8 @@
         "**/*.{js,ts,json}": [
             "npm run format"
         ]
+    },
+    "dependencies": {
+        "dotenv": "^16.4.5"
     }
 }
