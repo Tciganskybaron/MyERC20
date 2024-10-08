@@ -1,43 +1,128 @@
-# Sample Hardhat Project
+# Проект MyERC20 Token
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+## Используемые технологии
 
-установка зависимостей 
+- **Hardhat** — инструмент для разработки, тестирования и деплоя смарт-контрактов.
+- **@nomicfoundation/hardhat-toolbox-viem** — набор инструментов для интеграции Viem и работы с Ethereum через Hardhat.
+- **dotenv** — для управления переменными окружения.
+- **eslint** — для анализа кода и поддержания единого стиля кодирования.
+- **prettier** — для автоматического форматирования кода.
+- **husky** — для запуска Git хуков.
+- **lint-staged** — для проверки только тех файлов, которые изменились при коммите.
+
+Этот проект демонстрирует реализацию контракта стандарта ERC20 на основе Hardhat с использованием Viem. В проекте реализован контракт **FEDOTToken**, включающий такие возможности, как выпуск токенов (mint), сжигание токенов (burn), управление правами на использование токенов другими пользователями (allowance), а также полное покрытие тестами.
+
+## Установка зависимостей
+
+Перед началом работы выполните установку всех необходимых зависимостей:
+
 ```shell
 npm ci
 ```
 
-Try running some of the following tasks:
+## Переменные окружения
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.ts
-```
-Деплой контракта в localhost
-```bash
-npx hardhat ignition deploy ./ignition/modules/Lock.ts --network localhost
-```
+Для работы с проектом вам потребуется настроить следующие переменные окружения. Они должны быть добавлены в файл `.env` в корневой папке проекта:
 
-Деплой контракта в sepolia
 ```bash
-npx hardhat ignition deploy ./ignition/modules/Lock.ts --network sepolia  
+INFURA_ID=
+INFURA_SEPOLIA_URL=
+INFURA_MAINNET_URL=
+INFURA_BASE_URL=
+PRIVATE_KEY=
+TESTNET_MNEMONIC=
+ETHERSCAN_API_KEY=
+COINMARKETCAP_API_KEY=
 ```
 
-Команда для верификации контракта
+## Запуск задач проекта
+
+Для выполнения тестов и работы с проектом доступны следующие команды:
+
+- Запуск всех тестов:
+  ```shell
+  npx hardhat test
+  ```
+- Запуск тестов с отчетом по использованию газа:
+  ```shell
+  REPORT_GAS=true npx hardhat test
+  ```
+- Запуск локальной сети для разработки:
+  ```shell
+  npx hardhat node
+  ```
+
+## Деплой контрактов
+
+### Деплой контракта на локальную сеть
+
+Запустите локальную сеть, а затем выполните деплой контракта:
+
 ```bash
-npx hardhat verify --network sepolia 0xbBba42a717fB23b91743E10278e85367119Ab420 "1893456000"
+npx hardhat ignition deploy ignition/modules/FEDOTToken.ts --network localhost
 ```
-Команда насколько контракт покрыт тестами
+
+### Деплой контракта на Sepolia
+
+Для деплоя контракта на сеть Sepolia выполните команду:
+
+```bash
+npx hardhat ignition deploy ignition/modules/FEDOTToken.ts --network sepolia
+```
+
+### Верификация контракта на Etherscan
+
+После деплоя контракта на Sepolia, вы можете выполнить его верификацию на Etherscan:
+
+```bash
+npx hardhat verify --network sepolia <contract-address> "1893456000"
+```
+
+Где `<contract-address>` — это адрес вашего контракта.
+
+## Линтинг и форматирование
+
+Для поддержания качества кода и единого стиля в проекте используются следующие команды:
+
+- Автоматическое исправление ошибок линтинга (ESLint):
+  ```shell
+  npm run lint:fix
+  ```
+
+- Форматирование кода (Prettier):
+  ```shell
+  npm run format
+  ```
+
+## Запуск тестов и проверка покрытия
+
+Вы можете запустить тесты с анализом покрытия следующим образом:
+
 ```bash
 SOLIDITY_COVERAGE=true npx hardhat coverage
 ```
-% Stmts - это выражения
-% Branch - if и еlse
-% Funcs - функции
-% Lines - строки покрытые
-Uncovered Lines - строки не покрытые
 
-Нужно передать адрес контракта, и аргументы для конструктора.
+Отчет покажет информацию по покрытиям, такие как:
+- % Stmts — количество покрытых выражений
+- % Branch — покрытие ветвлений (if/else)
+- % Funcs — покрытие функций
+- % Lines — количество покрытых строк кода
+
+<p align="left">
+ <img width="600" src="assets/coverage.png" alt="test"/>
+</p>
+
+
+
+## Покрытие контрактов тестами
+
+Контракты полностью покрыты тестами для следующих сценариев:
+- **Инициализация токена**
+- **Выпуск токенов (mint)**
+- **Сжигание токенов (burn)**
+- **Переводы токенов между аккаунтами**
+- **Разрешения на использование токенов (allowance)**
+
+<p align="left">
+ <img width="600" src="assets/test.png" alt="test"/>
+</p>
