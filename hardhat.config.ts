@@ -8,6 +8,7 @@ const INFURA_ID = process.env.INFURA_ID;
 const INFURA_MAINNET_URL = process.env.INFURA_MAINNET_URL;
 const INFURA_SEPOLIA_URL = process.env.INFURA_SEPOLIA_URL;
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
+const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY;
 
 const config: HardhatUserConfig = {
     networks: {
@@ -30,8 +31,8 @@ const config: HardhatUserConfig = {
     },
     etherscan: {
         apiKey: {
-            mainnet: ETHERSCAN_API_KEY as string,
-            sepolia: ETHERSCAN_API_KEY as string,
+            mainnet: ETHERSCAN_API_KEY || "",
+            sepolia: ETHERSCAN_API_KEY || "",
         },
     },
     solidity: {
@@ -50,6 +51,9 @@ const config: HardhatUserConfig = {
     },
     gasReporter: {
         enabled: true,
+        currency: "USD",
+        gasPrice: 21,
+        coinmarketcap: COINMARKETCAP_API_KEY,
     },
 };
 
