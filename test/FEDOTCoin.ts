@@ -106,23 +106,6 @@ describe("FEDOTToken", function () {
                 "ERC20InsufficientBalance"
             );
         });
-
-        // it("Should revert if trying to burn tokens from the zero address", async function () {
-        //     const { token } = await loadFixture(deployFedotCoinFixture);
-        //     const burnAmount = parseUnits("1000", 18);
-
-        //     const tokenAsZER0Account = await hre.viem.getContractAt(
-        //         "FEDOTToken",
-        //         token.address,
-        //         {
-        //             client: { wallet: zeroAddress },
-        //         }
-        //     );
-
-        //     await expect(
-        //         token.write.burn([burnAmount], { from: zeroAddress })
-        //     ).to.be.rejectedWith("ERC20InvalidSender");
-        // });
     });
 
     describe("Transfers", function () {
@@ -156,7 +139,7 @@ describe("FEDOTToken", function () {
         });
 
         it("Should revert when transferring to the zero address", async function () {
-            const { token, owner } = await loadFixture(deployFedotCoinFixture);
+            const { token } = await loadFixture(deployFedotCoinFixture);
             const transferAmount = parseUnits("1000", 18);
             await expect(
                 token.write.transfer([zeroAddress, transferAmount])
