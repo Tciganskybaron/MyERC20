@@ -100,7 +100,7 @@ describe("FEDOTToken", function () {
         });
 
         it("Should revert if burning more than balance", async function () {
-            const { token, owner } = await loadFixture(deployFedotCoinFixture);
+            const { token } = await loadFixture(deployFedotCoinFixture);
             const burnAmount = parseUnits("2000000", 18); // Exceeding balance
             await expect(token.write.burn([burnAmount])).to.be.rejectedWith(
                 "ERC20InsufficientBalance"
